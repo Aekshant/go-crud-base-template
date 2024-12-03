@@ -3,18 +3,21 @@ package usersusecases
 import (
 	common "goGinTemplate/app/common"
 	domain "goGinTemplate/domain"
-	repository "goGinTemplate/infra/mysqlRepo"
 )
 
 type UserService interface {
 	GetAllUser()
 }
 
-type UserServiceImpl struct {
-	userRepository repository.UserRepository
+type userRepository interface {
+	FindAllUser() ([]domain.User, error)
 }
 
-func UserServiceInit(userRepository repository.UserRepository) *UserServiceImpl {
+type UserServiceImpl struct {
+	userRepository userRepository
+}
+
+func UserServiceInit(userRepository userRepository) *UserServiceImpl {
 	return &UserServiceImpl{
 		userRepository: userRepository,
 	}
