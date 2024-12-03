@@ -1,14 +1,14 @@
-package infra
+package mysqlrepo
 
 import (
-	"goGinTemplate/domain"
+	"goGinTemplate/domain/dao"
 
 	log "github.com/sirupsen/logrus"
 	"gorm.io/gorm"
 )
 
 type UserRepository interface {
-	FindAllUser() ([]domain.User, error)
+	FindAllUser() ([]dao.User, error)
 }
 
 type UserRepositoryImpl struct {
@@ -22,8 +22,8 @@ func UserRepositoryInit(db *gorm.DB) *UserRepositoryImpl {
 	}
 }
 
-func (u UserRepositoryImpl) FindAllUser() ([]domain.User, error) {
-	var users []domain.User
+func (u UserRepositoryImpl) FindAllUser() ([]dao.User, error) {
+	var users []dao.User
 
 	var err = u.db.Find(&users).Error
 	if err != nil {

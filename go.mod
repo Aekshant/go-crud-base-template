@@ -5,6 +5,7 @@ go 1.23.3
 require (
 	github.com/antonfisher/nested-logrus-formatter v1.3.1
 	github.com/gin-gonic/gin v1.10.0
+	github.com/google/wire v0.6.0
 	github.com/joho/godotenv v1.5.1
 	github.com/sirupsen/logrus v1.9.3
 	gorm.io/driver/mysql v1.5.7

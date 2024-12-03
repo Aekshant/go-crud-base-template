@@ -1,4 +1,4 @@
-package domain
+package dao
 
 type User struct {
 	ID       int    `gorm:"column:id; primary_key; not null" json:"id"`

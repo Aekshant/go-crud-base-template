@@ -1,12 +1,12 @@
 package dto
 
-type UserResponse struct {
+type GetUserDto struct {
 	ID    uint   `json:"id"`
 	Name  string `json:"name"`
 	Email string `json:"email"`
 }
 
-type UserRequest struct {
+type UserCreateDto struct {
 	Name  string `json:"name"`
 	Email string `json:"email"`
 }
