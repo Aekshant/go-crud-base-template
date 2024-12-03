@@ -14,7 +14,7 @@ type Initialization struct {
 	UserCtrl userController.UserController
 }
 
-func Init(gormDB *gorm.DB) *Initialization {
+func InitUserInjector(gormDB *gorm.DB) *Initialization {
 	userRepositoryImpl := repository.UserRepositoryInit(gormDB)
 	userServiceImpl := userService.UserServiceInit(userRepositoryImpl)
 	userControllerImpl := userController.UserControllerInit(userServiceImpl)

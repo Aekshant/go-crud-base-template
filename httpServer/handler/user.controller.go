@@ -1,12 +1,16 @@
 package handler
 
 import (
+	"goGinTemplate/app/common"
 	dto "goGinTemplate/domain/dto"
 	"log"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 type UserController interface {
-	GetAllUserData()
+	GetAllUserData(c *gin.Context)
 }
 
 type UserService interface {
@@ -23,20 +27,20 @@ func UserControllerInit(userService UserService) *UserControllerImpl {
 	}
 }
 
-func (srv *UserControllerImpl) GetAllUserData() {
-	_, err := srv.service.GetAllUser()
+func (srv *UserControllerImpl) GetAllUserData(c *gin.Context) {
+	data, err := srv.service.GetAllUser()
 	if err != nil {
-		// c.JSON(http.StatusInternalServerError, common.ServiceRepo[[]dto.GetUserDto]{
-		// 	Data:    nil,
-		// 	Err:     err,
-		// 	Success: false,
-		// })
+		c.JSON(http.StatusInternalServerError, common.ServiceRepo[[]dto.GetUserDto]{
+			Data:    nil,
+			Err:     err,
+			Success: false,
+		})
 		return
 	}
 	log.Println("Success-------------")
-	// c.JSON(http.StatusOK, common.ServiceRepo[[]dto.GetUserDto]{
-	// 	Data:    data,
-	// 	Err:     nil,
-	// 	Success: true,
-	// })
+	c.JSON(http.StatusOK, common.ServiceRepo[[]dto.GetUserDto]{
+		Data:    data,
+		Err:     nil,
+		Success: true,
+	})
 }
