@@ -1,27 +1,27 @@
 package dependencyinjector
 
-// import (
-// 	service "goGinTemplate/app/usecases/usersUsecases"
-// 	controller "goGinTemplate/httpServer/handler"
-// 	repository "goGinTemplate/infra/mysqlRepo"
+import (
+	userService "goGinTemplate/app/usecases/usersUsecases"
+	userController "goGinTemplate/httpServer/handler"
+	repository "goGinTemplate/infra/mysqlRepo"
 
-// 	"gorm.io/gorm"
-// )
+	"gorm.io/gorm"
+)
 
-// type Initialization struct {
-// 	userRepo repository.UserRepository
-// 	userSvc  service.UserService
-// 	UserCtrl controller.UserController
-// }
+type Initialization struct {
+	userRepo repository.UserRepository
+	userSvc  userService.UserService
+	UserCtrl userController.UserController
+}
 
-// func Init(gormDB *gorm.DB) *Initialization {
-// 	userRepository := repository.UserRepositoryInit(gormDB)
-// 	userService := service.UserServiceImpl(userRepository)
-// 	userController := controller.UserControllerImpl(userService)
+func Init(gormDB *gorm.DB) *Initialization {
+	userRepositoryImpl := repository.UserRepositoryInit(gormDB)
+	userServiceImpl := userService.UserServiceInit(userRepositoryImpl)
+	userControllerImpl := userController.UserControllerInit(userServiceImpl)
 
-// 	return (&Initialization{
-// 		UserController: userController,
-// 		UserService:    userService,
-// 		UserRepository: userRepository,
-// 	})
-// }
+	return (&Initialization{
+		userRepo: userRepositoryImpl,
+		userSvc:  userServiceImpl,
+		UserCtrl: userControllerImpl,
+	})
+}
